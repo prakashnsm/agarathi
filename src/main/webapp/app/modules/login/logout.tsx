@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from 'react';
 import { connect } from 'react-redux';
-
+import { Translate, translate } from 'react-jhipster';
 import { IRootState } from 'app/shared/reducers';
 import { logout } from 'app/shared/reducers/authentication';
 
@@ -23,7 +23,7 @@ export const Logout = (props: ILogoutProps) => {
 
   return (
     <div className="p-5">
-      <h4>Logged out successfully!</h4>
+      <h4><Translate contentKey="login.logout">Logged out successfully!</Translate></h4>
     </div>
   );
 };
