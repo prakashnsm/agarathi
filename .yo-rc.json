@@ -1,0 +1,56 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "org.tamil.app",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "6.10.5",
+    "applicationType": "monolith",
+    "baseName": "agarathi",
+    "packageName": "org.tamil.app",
+    "packageFolder": "org/tamil/app",
+    "serverPort": "8080",
+    "authenticationType": "session",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": "elasticsearch",
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "gradle",
+    "enableSwaggerCodegen": false,
+    "rememberMeKey": "327138744d60f8e11b75f074a0587405d217cf3acdd85a879583411d5f66fde91ce88046bc014d9f2f7784238bd6e7af91ee",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "react",
+    "clientTheme": "sketchy",
+    "clientThemeVariant": "light",
+    "creationTimestamp": 1610473202058,
+    "testFrameworks": ["cucumber"],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [
+      {
+        "name": "generator-jhipster-testcontainers",
+        "version": "1.1.0"
+      },
+      {
+        "name": "generator-jhipster-ngx-charts",
+        "version": "1.0.3"
+      },
+      {
+        "name": "generator-jhipster-file-handling",
+        "version": "1.1.1"
+      }
+    ],
+    "enableTranslation": true,
+    "nativeLanguage": "en",
+    "languages": ["en", "ta"],
+    "blueprints": []
+  }
+}

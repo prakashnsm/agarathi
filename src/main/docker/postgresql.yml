@@ -1,0 +1,12 @@
+version: '2'
+services:
+  agarathi-postgresql:
+    image: postgres:12.3
+    # volumes:
+    #     - ~/volumes/jhipster/agarathi/postgresql/:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=agarathi
+      - POSTGRES_PASSWORD=
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - 5432:5432
