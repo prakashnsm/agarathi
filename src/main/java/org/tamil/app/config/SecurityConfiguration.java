@@ -1,10 +1,5 @@
 package org.tamil.app.config;
 
-import org.tamil.app.security.*;
-
-import io.github.jhipster.config.JHipsterProperties;
-import io.github.jhipster.security.*;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
@@ -20,7 +15,13 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
 import org.springframework.web.filter.CorsFilter;
+import org.tamil.app.security.AuthoritiesConstants;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
+
+import io.github.jhipster.config.JHipsterProperties;
+import io.github.jhipster.security.AjaxAuthenticationFailureHandler;
+import io.github.jhipster.security.AjaxAuthenticationSuccessHandler;
+import io.github.jhipster.security.AjaxLogoutSuccessHandler;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)

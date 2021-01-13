@@ -20,6 +20,7 @@
       },
       "admin": {
         "main": "Administration",
+        "sheetManagement": "Sheet management",
         "userManagement": "User management",
         "tracker": "User tracker",
         "metrics": "Metrics",
