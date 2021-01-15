@@ -332,9 +332,5 @@ if (project.hasProperty("nodeInstall")) {
     }
 }
 
-task stage {
-    dependsOn build
-}
-
 compileJava.dependsOn processResources
 processResources.dependsOn bootBuildInfo
