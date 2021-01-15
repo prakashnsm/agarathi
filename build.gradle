@@ -297,6 +297,8 @@ dependencies {
     testImplementation "com.h2database:h2"
     liquibaseRuntime "com.h2database:h2"
     //jhipster-needle-gradle-dependency - JHipster will add additional dependencies here
+    implementation "org.apache.poi:poi:3.17"
+    implementation "org.apache.poi:poi-ooxml:3.17"
 }
 
 if (project.hasProperty("gae")) {
@@ -328,5 +330,10 @@ if (project.hasProperty("nodeInstall")) {
         download = true
     }
 }
+
+task stage {
+    dependsOn build
+}
+
 compileJava.dependsOn processResources
 processResources.dependsOn bootBuildInfo

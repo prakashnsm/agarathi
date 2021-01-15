@@ -22,6 +22,7 @@ public class UploadFileController {
 	      fileServices.store(file);
 	      return ResponseEntity.ok().build();
     	} catch( Exception e) {
+    		e.printStackTrace();
     		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     	}
     }

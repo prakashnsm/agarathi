@@ -56,17 +56,22 @@ public class ExcelUtils {
 					break;
 	            }
 	            
-	            if(StringUtils.isBlank(cellValue)) {
-					break;
+	            if(StringUtils.isBlank(StringUtils.trim(cellValue))) {
+					continue;
 				}
+	            word.setSheet(ss);
 				if(cellIndex==0) { // English Word
 					word.setEng(cellValue);
 				} else if(cellIndex==1) { // Tamizh Word
-					word.setTamizh(cellValue);
+					if(cellValue.contains(";")) {
+						splitWords(ss, lstWords, word, cellValue);
+						continue;
+					} else {
+						word.setTamizh(cellValue);
+					}
 				}
 	            cellIndex++;
 	          }
-	          word.setSheet(ss);
 	          lstWords.add(word);
 	          
         	} catch (Exception e) {
@@ -81,4 +86,15 @@ public class ExcelUtils {
       throw new Exception("FAIL! -> message = " + e.getMessage());
     }
   }
+
+	private static void splitWords(org.tamil.app.domain.Sheet ss, List<Word> lstWords, Word word, String cellValue) {
+		String[] vals = cellValue.split(";");
+		for(int i=0; i<vals.length; i++) {
+			Word word1 = new Word();
+			word1.setSheet(ss);
+			word1.setEng(word.getEng());
+			word1.setTamizh(vals[i]);
+			lstWords.add(word1);
+		}
+	}
 }

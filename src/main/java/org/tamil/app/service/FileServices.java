@@ -3,7 +3,9 @@ package org.tamil.app.service;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.apache.commons.collections4.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ import org.tamil.app.domain.Word;
 import org.tamil.app.repository.SheetRepository;
 import org.tamil.app.repository.WordRepository;
 import org.tamil.app.service.mapper.ExcelUtils;
+
+import net.logstash.logback.encoder.org.apache.commons.lang3.StringUtils;
 
 /**
  * Service class for managing users.
@@ -50,6 +54,11 @@ public class FileServices {
     public void processWords(MultipartFile file, Sheet sheet) {
     	try {
 			List<Word> words = ExcelUtils.parseExcelFile(file.getInputStream(), sheet);
+			words = words.stream().filter(a->{
+				return StringUtils.isNotBlank(StringUtils.trim(a.getEng())) && StringUtils.isNotBlank(StringUtils.trim(a.getTamizh()));
+			}).collect(Collectors.toList());
+			
+			log.debug("words size : "+ words.size());
 			this.wordRepository.saveAll(words);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -38,13 +38,13 @@ public class Word extends AbstractAuditingEntity implements Serializable {
     private Long id;
     
     @NotNull
-    @Size(max = 50)
-    @Column(length = 50)
+    @Size(max = 500)
+    @Column(length = 500)
     private String eng;
     
     @NotNull
-    @Size(max = 50)
-    @Column(length = 50)
+    @Size(max = 500)
+    @Column(length = 500)
     private String tamizh;
     
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
