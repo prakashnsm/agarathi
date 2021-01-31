@@ -1,79 +1,61 @@
 package org.tamil.app.service.dto;
 
-import java.time.Instant;
-
-import javax.validation.constraints.Size;
-
 import org.tamil.app.domain.Sheet;
+import org.tamil.app.domain.Word;
 
 /**
  * A DTO representing a user, with his authorities.
  */
-public class SheetDTO {
+public class WordDTO {
 
-    private Long id;
-
-    @Size(max = 50)
-    private String name;
-
-    @Size(max = 50)
-    private String tag;
-
-    private Instant createdDate;
-
-    private Instant lastModifiedDate;
+	private Long id;
+	private String eng;
+	private String tamizh;
+	private Sheet sheet;
 
 
-    public SheetDTO() {
+    public WordDTO() {
         // Empty constructor needed for Jackson.
     }
 
-    public SheetDTO(Sheet sheet) {
-        this.id = sheet.getId();
-        this.name = sheet.getName();
-        this.tag = sheet.getTag();
-        this.createdDate = sheet.getCreatedDate();
-        this.lastModifiedDate = sheet.getLastModifiedDate();
+    public WordDTO(Word word) {
+        this.id = word.getId();
+        this.eng = word.getEng();
+        this.tamizh = word.getTamizh();
+        this.sheet=word.getSheet();
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-    
-    public String getName() {
-		return name;
+	public Long getId() {
+		return id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getTag() {
-		return tag;
+	public String getEng() {
+		return eng;
 	}
 
-	public void setTag(String tag) {
-		this.tag = tag;
+	public void setEng(String eng) {
+		this.eng = eng;
 	}
 
-	public Instant getCreatedDate() {
-        return createdDate;
-    }
+	public String getTamizh() {
+		return tamizh;
+	}
 
-    public void setCreatedDate(Instant createdDate) {
-        this.createdDate = createdDate;
-    }
+	public void setTamizh(String tamizh) {
+		this.tamizh = tamizh;
+	}
 
-    public Instant getLastModifiedDate() {
-        return lastModifiedDate;
-    }
+	public Sheet getSheet() {
+		return sheet;
+	}
 
-    public void setLastModifiedDate(Instant lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
+	public void setSheet(Sheet sheet) {
+		this.sheet = sheet;
+	}
     
 }
