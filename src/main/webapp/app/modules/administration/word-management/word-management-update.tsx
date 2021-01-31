@@ -7,19 +7,19 @@ import { Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { locales, languages } from 'app/config/translation';
-import { getSheet, getRoles, updateSheet, createSheet, reset } from './sheet-management.reducer';
+import { getWord, getRoles, updateWord, createWord, reset } from './word-management.reducer';
 import { IRootState } from 'app/shared/reducers';
 
-export interface ISheetManagementUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IWordManagementUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
-export const SheetManagementUpdate = (props: ISheetManagementUpdateProps) => {
+export const WordManagementUpdate = (props: IWordManagementUpdateProps) => {
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
   useEffect(() => {
     if (isNew) {
       props.reset();
     } else {
-      props.getSheet(props.match.params.id);
+      props.getWord(props.match.params.id);
     }
     props.getRoles();
     return () => {
@@ -28,14 +28,14 @@ export const SheetManagementUpdate = (props: ISheetManagementUpdateProps) => {
   }, []);
 
   const handleClose = () => {
-    props.history.push('/admin/sheet-management');
+    props.history.push('/admin/word-management');
   };
 
-  const saveSheet = (event, values) => {
+  const saveWord = (event, values) => {
     if (isNew) {
-      props.createSheet(values);
+      props.createWord(values);
     } else {
-      props.updateSheet(values);
+      props.updateWord(values);
     }
     handleClose();
   };
@@ -57,27 +57,27 @@ export const SheetManagementUpdate = (props: ISheetManagementUpdateProps) => {
     const xsrf = getCSRF();
     if(e.target.files && e.target.files[0]){
       formData.append('uploadfile', e.target.files[0]);
-      fetch('/upload', {
+      fetch('http://localhost:8080/upload', {
           method: 'post',
           headers: {'X-XSRF-TOKEN' : xsrf},
           body: formData
       }).then(res => {
         if(res.ok) {
-          props.history.push(`/admin/sheet-management`);
+          props.history.push(`/admin/word-management`);
         }
       });
     }
   };
 
   const isInvalid = false;
-  const { sheet, loading, updating, roles } = props;
+  const { word, loading, updating, roles } = props;
 
   return (
     <div>
       <Row className="justify-content-center">
         <Col md="8">
           <h1>
-            <Translate contentKey="sheetManagement.home.createOrEditLabel">Create or edit a Sheet</Translate>
+            <Translate contentKey="wordManagement.home.createOrEditLabel">Create or edit a Word</Translate>
           </h1>
         </Col>
       </Row>
@@ -86,18 +86,18 @@ export const SheetManagementUpdate = (props: ISheetManagementUpdateProps) => {
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <AvForm onValidSubmit={saveSheet}>
-              {sheet.id ? (
+            <AvForm onValidSubmit={saveWord}>
+              {word.id ? (
                 <AvGroup>
                   <Label for="id">
                     <Translate contentKey="global.field.id">ID</Translate>
                   </Label>
-                  <AvField type="text" className="form-control" name="id" required readOnly value={sheet.id} />
+                  <AvField type="text" className="form-control" name="id" required readOnly value={word.id} />
                 </AvGroup>
               ) : null}
               <AvGroup>
                 <Label for="name">
-                  <Translate contentKey="sheetManagement.name">Name</Translate>
+                  <Translate contentKey="wordManagement.name">Name</Translate>
                 </Label>
                 <AvField
                   type="file"
@@ -107,7 +107,7 @@ export const SheetManagementUpdate = (props: ISheetManagementUpdateProps) => {
                 />
               </AvGroup>
 
-              <Button tag={Link} to="/admin/sheet-management" replace color="info">
+              <Button tag={Link} to="/admin/word-management" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
@@ -129,15 +129,15 @@ export const SheetManagementUpdate = (props: ISheetManagementUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
-  sheet: storeState.sheetManagement.sheet,
-  roles: storeState.sheetManagement.authorities,
-  loading: storeState.sheetManagement.loading,
-  updating: storeState.sheetManagement.updating,
+  word: storeState.wordManagement.word,
+  roles: storeState.wordManagement.authorities,
+  loading: storeState.wordManagement.loading,
+  updating: storeState.wordManagement.updating,
 });
 
-const mapDispatchToProps = { getSheet, getRoles, updateSheet, createSheet, reset };
+const mapDispatchToProps = { getWord, getRoles, updateWord, createWord, reset };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(SheetManagementUpdate);
+export default connect(mapStateToProps, mapDispatchToProps)(WordManagementUpdate);

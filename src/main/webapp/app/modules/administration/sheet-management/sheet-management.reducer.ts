@@ -6,11 +6,11 @@ import { ISheet, defaultValue } from 'app/shared/model/sheet.model';
 
 export const ACTION_TYPES = {
   FETCH_ROLES: 'sheetManagement/FETCH_ROLES',
-  FETCH_USERS: 'sheetManagement/FETCH_USERS',
-  FETCH_USER: 'sheetManagement/FETCH_USER',
-  CREATE_USER: 'sheetManagement/CREATE_USER',
-  UPDATE_USER: 'sheetManagement/UPDATE_USER',
-  DELETE_USER: 'sheetManagement/DELETE_USER',
+  FETCH_SHEETS: 'sheetManagement/FETCH_SHEETS',
+  FETCH_SHEET: 'sheetManagement/FETCH_SHEET',
+  CREATE_SHEET: 'sheetManagement/CREATE_SHEET',
+  UPDATE_SHEET: 'sheetManagement/UPDATE_SHEET',
+  DELETE_SHEET: 'sheetManagement/DELETE_SHEET',
   RESET: 'sheetManagement/RESET',
 };
 
@@ -34,29 +34,29 @@ export default (state: SheetManagementState = initialState, action): SheetManage
       return {
         ...state,
       };
-    case REQUEST(ACTION_TYPES.FETCH_USERS):
-    case REQUEST(ACTION_TYPES.FETCH_USER):
+    case REQUEST(ACTION_TYPES.FETCH_SHEETS):
+    case REQUEST(ACTION_TYPES.FETCH_SHEET):
       return {
         ...state,
         errorMessage: null,
         updateSuccess: false,
         loading: true,
       };
-    case REQUEST(ACTION_TYPES.CREATE_USER):
-    case REQUEST(ACTION_TYPES.UPDATE_USER):
-    case REQUEST(ACTION_TYPES.DELETE_USER):
+    case REQUEST(ACTION_TYPES.CREATE_SHEET):
+    case REQUEST(ACTION_TYPES.UPDATE_SHEET):
+    case REQUEST(ACTION_TYPES.DELETE_SHEET):
       return {
         ...state,
         errorMessage: null,
         updateSuccess: false,
         updating: true,
       };
-    case FAILURE(ACTION_TYPES.FETCH_USERS):
-    case FAILURE(ACTION_TYPES.FETCH_USER):
+    case FAILURE(ACTION_TYPES.FETCH_SHEETS):
+    case FAILURE(ACTION_TYPES.FETCH_SHEET):
     case FAILURE(ACTION_TYPES.FETCH_ROLES):
-    case FAILURE(ACTION_TYPES.CREATE_USER):
-    case FAILURE(ACTION_TYPES.UPDATE_USER):
-    case FAILURE(ACTION_TYPES.DELETE_USER):
+    case FAILURE(ACTION_TYPES.CREATE_SHEET):
+    case FAILURE(ACTION_TYPES.UPDATE_SHEET):
+    case FAILURE(ACTION_TYPES.DELETE_SHEET):
       return {
         ...state,
         loading: false,
@@ -69,28 +69,28 @@ export default (state: SheetManagementState = initialState, action): SheetManage
         ...state,
         authorities: action.payload.data,
       };
-    case SUCCESS(ACTION_TYPES.FETCH_USERS):
+    case SUCCESS(ACTION_TYPES.FETCH_SHEETS):
       return {
         ...state,
         loading: false,
         sheets: action.payload.data,
         totalItems: parseInt(action.payload.headers['x-total-count'], 10),
       };
-    case SUCCESS(ACTION_TYPES.FETCH_USER):
+    case SUCCESS(ACTION_TYPES.FETCH_SHEET):
       return {
         ...state,
         loading: false,
         sheet: action.payload.data,
       };
-    case SUCCESS(ACTION_TYPES.CREATE_USER):
-    case SUCCESS(ACTION_TYPES.UPDATE_USER):
+    case SUCCESS(ACTION_TYPES.CREATE_SHEET):
+    case SUCCESS(ACTION_TYPES.UPDATE_SHEET):
       return {
         ...state,
         updating: false,
         updateSuccess: true,
         sheet: action.payload.data,
       };
-    case SUCCESS(ACTION_TYPES.DELETE_USER):
+    case SUCCESS(ACTION_TYPES.DELETE_SHEET):
       return {
         ...state,
         updating: false,
@@ -111,7 +111,7 @@ const apiUrl = 'api/sheets';
 export const getSheets: ICrudGetAllAction<ISheet> = (page, size, sort) => {
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
-    type: ACTION_TYPES.FETCH_USERS,
+    type: ACTION_TYPES.FETCH_SHEETS,
     payload: axios.get<ISheet>(requestUrl),
   };
 };
@@ -124,14 +124,14 @@ export const getRoles = () => ({
 export const getSheet: ICrudGetAction<ISheet> = id => {
   const requestUrl = `${apiUrl}/${id}`;
   return {
-    type: ACTION_TYPES.FETCH_USER,
+    type: ACTION_TYPES.FETCH_SHEET,
     payload: axios.get<ISheet>(requestUrl),
   };
 };
 
 export const createSheet: ICrudPutAction<ISheet> = sheet => async dispatch => {
   const result = await dispatch({
-    type: ACTION_TYPES.CREATE_USER,
+    type: ACTION_TYPES.CREATE_SHEET,
     payload: axios.post(apiUrl, sheet),
   });
   dispatch(getSheets());
@@ -140,7 +140,7 @@ export const createSheet: ICrudPutAction<ISheet> = sheet => async dispatch => {
 
 export const updateSheet: ICrudPutAction<ISheet> = sheet => async dispatch => {
   const result = await dispatch({
-    type: ACTION_TYPES.UPDATE_USER,
+    type: ACTION_TYPES.UPDATE_SHEET,
     payload: axios.put(apiUrl, sheet),
   });
   dispatch(getSheets());
@@ -150,7 +150,7 @@ export const updateSheet: ICrudPutAction<ISheet> = sheet => async dispatch => {
 export const deleteSheet: ICrudDeleteAction<ISheet> = id => async dispatch => {
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
-    type: ACTION_TYPES.DELETE_USER,
+    type: ACTION_TYPES.DELETE_SHEET,
     payload: axios.delete(requestUrl),
   });
   dispatch(getSheets());

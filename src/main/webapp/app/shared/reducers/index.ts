@@ -8,6 +8,7 @@ import applicationProfile, { ApplicationProfileState } from './application-profi
 import administration, { AdministrationState } from 'app/modules/administration/administration.reducer';
 import userManagement, { UserManagementState } from 'app/modules/administration/user-management/user-management.reducer';
 import sheetManagement, { SheetManagementState } from 'app/modules/administration/sheet-management/sheet-management.reducer';
+import wordManagement, { WordManagementState } from 'app/modules/administration/word-management/word-management.reducer';
 import register, { RegisterState } from 'app/modules/account/register/register.reducer';
 import activate, { ActivateState } from 'app/modules/account/activate/activate.reducer';
 import password, { PasswordState } from 'app/modules/account/password/password.reducer';
@@ -23,6 +24,7 @@ export interface IRootState {
   readonly administration: AdministrationState;
   readonly userManagement: UserManagementState;
   readonly sheetManagement: SheetManagementState;
+  readonly wordManagement: WordManagementState;
   readonly register: RegisterState;
   readonly activate: ActivateState;
   readonly passwordReset: PasswordResetState;
@@ -39,6 +41,7 @@ const rootReducer = combineReducers<IRootState>({
   applicationProfile,
   administration,
   sheetManagement,
+  wordManagement,
   userManagement,
   register,
   activate,
