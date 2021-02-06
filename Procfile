@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar build/libs/*.jar --spring.profiles.active=dev,swagger --server.port=$PORT
+web: java $JAVA_OPTS -jar build/libs/*.jar --spring.profiles.active=dev --server.port=$PORT
