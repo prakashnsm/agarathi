@@ -158,7 +158,7 @@ project.ext.diffChangelogFile = "src/main/resources/config/liquibase/changelog/"
 
 liquibase {
     activities {
-        main {
+        /*main {
             driver "org.h2.Driver"
             url "jdbc:h2:file:./build/h2db/db/agarathi"
             username "agarathi"
@@ -175,6 +175,27 @@ liquibase {
             password ""
             changeLogFile project.ext.diffChangelogFile
             referenceUrl "hibernate:spring:org.tamil.app.domain?dialect=org.hibernate.dialect.H2Dialect&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy"
+            defaultSchemaName ""
+            logLevel "debug"
+            classpath "$buildDir/classes/java/main"
+        }*/
+        main {
+            driver "org.postgresql.Driver"
+            url "jdbc:postgresql://thedupori-3906.postgresql.dbs.scalingo.com:33973/thedupori_3906?ssl=true&sslmode=prefer"
+            username "thedupori_3906"
+            password "Aw-yXdKew4yf12ptHfjD"
+            changeLogFile "src/main/resources/config/liquibase/master.xml"
+            defaultSchemaName ""
+            logLevel "debug"
+            classpath "src/main/resources/"
+        }
+        diffLog {
+            driver "org.postgresql.Driver"
+            url "jdbc:postgresql://thedupori-3906.postgresql.dbs.scalingo.com:33973/thedupori_3906?ssl=true&sslmode=prefer"
+            username "thedupori_3906"
+            password "Aw-yXdKew4yf12ptHfjD"
+            changeLogFile project.ext.diffChangelogFile
+            referenceUrl "hibernate:spring:org.tamil.app.domain?dialect=org.hibernate.dialect.MySQL5InnoDBDialect&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy"
             defaultSchemaName ""
             logLevel "debug"
             classpath "$buildDir/classes/java/main"
@@ -294,8 +315,12 @@ dependencies {
     testImplementation "org.springframework.boot:spring-boot-test"
     testImplementation "com.tngtech.archunit:archunit-junit5-api:${archunit_junit5_version}"
     testRuntimeOnly "com.tngtech.archunit:archunit-junit5-engine:${archunit_junit5_version}"
-    testImplementation "com.h2database:h2"
-    liquibaseRuntime "com.h2database:h2"
+    //testImplementation "com.h2database:h2"
+    //liquibaseRuntime "com.h2database:h2"
+    
+    testImplementation "org.postgresql:postgresql:42.2.16"
+    liquibaseRuntime "org.postgresql:postgresql:42.2.16"
+    
     //jhipster-needle-gradle-dependency - JHipster will add additional dependencies here
     implementation "org.apache.poi:poi:3.17"
     implementation "org.apache.poi:poi-ooxml:3.17"
